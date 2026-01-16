@@ -1,6 +1,6 @@
 # PvP Toggle
 
-A lightweight Hytale server plugin that allows players to toggle their PvP status on or off.
+PvP Toggle gives players control over their PvP status. Players can choose to opt-in or opt-out of player combat, with configurable combat timers and cooldowns to prevent abuse.
 
 ## Requirements
 
