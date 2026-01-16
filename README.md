@@ -1,97 +1,77 @@
-# Hytale Example Plugin
+# PvP Toggle
 
-An example project that can build and run plugins for the game Hytale!
-
-> **⚠️ Warning: Early Access**    
-> The game Hytale is in early access, and so is this project! Features may be
-> incomplete, unstable, or change frequently. Please be patient and understanding as development
-> continues.
-
-## Introduction
-This project contains a Gradle project that can be imported into IDEA and used
-as the foundation for custom Hytale plugins. The template will add the Hytale
-server to your classpath and create a run configuration that can be used to
-run your plugin on the server. It can also be used to build a sharable JAR file
-that contains your plugin.
+A lightweight Hytale server plugin that allows players to toggle their PvP status on or off.
 
 ## Requirements
-Please ensure all the requirements are met before getting started.
 
-1. Download Hytale using the official launcher.
-2. Have Intellij IDEA installed. Community edition is fine.
-3. Download Java 25 and set it as the SDK in IDEA.
+- PvP must be enabled in the world configuration. If the world has PvP disabled at the world level, this plugin will have no effect.
 
-Currently this template only supports Windows!
+## Features
 
-## Configuring Template
-It is important to configure the project before using it as a template. Doing
-this before importing the project will help avoid running into caching issues
-later on.
+- **Per-player PvP toggle** - Each player can independently enable or disable their PvP status
+- **Combat protection** - Players cannot toggle PvP while actively in combat
+- **Toggle cooldown** - Configurable cooldown between PvP state changes to prevent abuse
+- **Persistent state** - PvP status is saved across server restarts
+- **Admin controls** - Server administrators can view and modify plugin settings in-game
 
-### 1: Project Name
-Set the name of the project in `settings.gradle`. This should be the name of
-your plugin. We recommend capitalizing your project name and avoiding 
-whitespace and most special characters. This will be used as the base name for
-any files produced by Gradle, like the sharable JAR file.
+## How It Works
 
-### 2: Gradle Properties
-Review the properties defined in `gradle.properties`. You should change the 
-`maven_group` to match your project. You should also change the `version`
-property before making a new release, or set up CI/CD to automate it.
+When a player has PvP disabled:
+- They cannot damage other players
+- They cannot be damaged by other players
 
-### 3: Manifest
-The manifest file provides important information about your plugin to Hytale.
-You should update every property in this file to reflect your project. The 
-most important property to set is `Main` which tells the game which class
-file to load as the entry point for your plugin. The file can be found at 
-`src/main/resources/manifest.json`.
+If either the attacker or the target has PvP disabled, no damage is dealt.
 
-**This template has configured Gradle to automatically update the `Version` and
-`IncludesAssetPack` property to reflect your Gradle properties every time you 
-run the game in development, or build the plugin. This is a workaround to allow
-the in-game asset editor to be used when working on your project.**
+The combat timer prevents players from disabling PvP mid-fight. After engaging in PvP combat, players must wait for the combat timer to expire before they can change their PvP status.
 
-## Importing into IDEA
-When opening the project in IDEA it should automatically create the
-`HytaleServer` run configuration and a `./run` folder. When you run the game it
-will generate all the relevant files in there. It will also load the default 
-assets from the games.
+## Commands
 
-**If you do not see the `HytaleServer` run configuration, you may need to open
-the dropdown or click `Edit Configurations...` once to unhide it.**
+### Player Commands
 
-## Connecting to Server
-Once the server is running in IDEA you should be able to connect to 
-`Local Server` using your standard Hytale client. If the server does not show
-up automatically, add the IP as `127.0.0.1` manually.
+| Command | Description |
+|---------|-------------|
+| `/pvp on` | Enable PvP for yourself |
+| `/pvp off` | Disable PvP for yourself |
+| `/pvp status` | Check your current PvP status, combat timer, and cooldown |
 
-### You MUST authenticate your test server!
-In order to connect to the test server, you must authenticate it with Hytale.
-This is done by running the `auth login device` command in the server terminal.
-This command will print a URL that you can use to authenticate the server using
-your Hytale account. Once authenticated, you can run the 
-`auth persistence Encrypted` command to keep your server authenticated after 
-restarting it. 
+### Admin Commands
 
-**Never share your encrypted auth file!**
+| Command | Description |
+|---------|-------------|
+| `/pvp admin config` | Display current plugin configuration |
+| `/pvp admin set <key> <value>` | Modify a configuration value |
 
-If you are unable to run commands from the IDEA terminal, you can also run the 
-command from code like this. Make sure to remove the code after your server is
-authenticated.
+#### Configuration Keys
 
-```java
-    @Override
-    protected void start() {
-        CommandManager.get().handleCommand(ConsoleSender.INSTANCE, "auth login device");
-    }
-```
+| Key | Type | Description |
+|-----|------|-------------|
+| `combattimer` | seconds | How long after PvP damage before you can toggle (0 to disable) |
+| `cooldown` | seconds | How long between PvP toggles (0 to disable) |
+| `default` | true/false | Default PvP state for new players |
+| `persist` | true/false | Save PvP state across server restarts |
 
+Boolean values accept: `true`, `false`, `yes`, `no`, `on`, `off`, `1`, `0`
 
-## Verifying The Example Plugin
-You can verify the Example plugin has loaded by running the `/test` command 
-in game. It will print the name and version of your plugin. This is for 
-demonstration purposes, and should **NOT** be included in your final build.
+## Default Configuration
 
-The example plugin also includes a recipe defined by an asset pack. This recipe
-allows you to craft 10 dirt into 1 dirt using the crafting window. This is also
-an example and should not be removed before you release the plugin.
+| Setting | Default |
+|---------|---------|
+| Combat Timer | 10 seconds |
+| Toggle Cooldown | 5 seconds |
+| Default PvP State | Enabled |
+| Data Persistence | Enabled |
+
+## Permissions
+
+- All players can use `/pvp on`, `/pvp off`, and `/pvp status`
+- Admin commands require Creative mode permissions
+
+## Installation
+
+1. Build the plugin JAR
+2. Place in your server's plugins folder
+3. Restart the server
+
+## License
+
+MIT
