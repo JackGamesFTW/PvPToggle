@@ -1,0 +1,16 @@
+{
+    "Group": "Jack",
+    "Name": "PvPToggle",
+    "Version": "1.0.0",
+    "Description": "Allows players to toggle their PvP status on or off",
+    "Authors": [
+        {
+            "Name": "Jack <https://x.com/jackgamesftw>"
+        }
+    ],
+    "Website": "https://github.com/jackgamesftw/PvPToggle",
+    "ServerVersion": "*",
+    "DisabledByDefault": false,
+    "Main": "me.jack.pvptoggle.PvPTogglePlugin",
+    "IncludesAssetPack": false
+}
