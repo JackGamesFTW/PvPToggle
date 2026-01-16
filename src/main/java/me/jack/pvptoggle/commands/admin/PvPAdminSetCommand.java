@@ -13,7 +13,7 @@ import javax.annotation.Nonnull;
 
 public class PvPAdminSetCommand extends AbstractCommand {
 
-    private static final Message MSG_INVALID_KEY = Message.raw("Invalid key. Valid keys: combattimer, cooldown, default, persist, lootprotection");
+    private static final Message MSG_INVALID_KEY = Message.raw("Invalid key. Valid keys: combattimer, cooldown, default, persist, itemprotection");
     private static final Message MSG_INVALID_VALUE = Message.raw("Invalid value. Use a number for timers, or true/false/yes/no/on/off for toggles.");
     private static final Message MSG_PERSIST_RESTART = Message.raw("Note: 'persist' changes require a server restart to take effect.");
 
@@ -25,7 +25,7 @@ public class PvPAdminSetCommand extends AbstractCommand {
 
     public PvPAdminSetCommand() {
         super("set", "Set a config value");
-        this.keyArg = this.withRequiredArg("key", "Config key (combattimer, cooldown, default, persist, lootprotection)", ArgTypes.STRING);
+        this.keyArg = this.withRequiredArg("key", "Config key (combattimer, cooldown, default, persist, itemprotection)", ArgTypes.STRING);
         this.valueArg = this.withRequiredArg("value", "New value", ArgTypes.STRING);
     }
 
@@ -74,7 +74,7 @@ public class PvPAdminSetCommand extends AbstractCommand {
                 context.sendMessage(Message.raw("Persist PvP state set to " + (enabled ? "enabled" : "disabled")));
                 context.sendMessage(MSG_PERSIST_RESTART);
             }
-            case "lootprotection" -> {
+            case "itemprotection" -> {
                 Boolean enabled = parseBoolean(value);
                 if (enabled == null) {
                     context.sendMessage(MSG_INVALID_VALUE);
