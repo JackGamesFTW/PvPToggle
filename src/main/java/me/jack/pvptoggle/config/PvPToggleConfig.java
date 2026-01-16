@@ -8,6 +8,7 @@ import me.jack.pvptoggle.constants.PvPToggleConstants;
 public class PvPToggleConfig {
     private boolean persistPvPState = PvPToggleConstants.PERSIST_PVP_STATE;
     private boolean defaultPvPEnabled = PvPToggleConstants.DEFAULT_PVP_ENABLED;
+    private boolean itemProtectionEnabled = PvPToggleConstants.LOOT_PROTECTION_ENABLED;
 
     private long combatTimerSeconds = PvPToggleConstants.COMBAT_TIMER_SECONDS;
     private long toggleCooldownSeconds = PvPToggleConstants.TOGGLE_COOLDOWN_SECONDS;
@@ -26,6 +27,9 @@ public class PvPToggleConfig {
             .append(new KeyedCodec<>("ToggleCooldownSeconds", Codec.LONG),
                     (config, value) -> config.toggleCooldownSeconds = value,
                     (config) -> config.toggleCooldownSeconds).add()
+            .append(new KeyedCodec<>("ItemProtectionEnabled", Codec.BOOLEAN),
+                    (config, value) -> config.itemProtectionEnabled = value,
+                    (config) -> config.itemProtectionEnabled).add()
             .build();
 
     public boolean isPersistPvPState() {
@@ -64,6 +68,16 @@ public class PvPToggleConfig {
 
     public PvPToggleConfig setToggleCooldownSeconds(long toggleCooldownSeconds) {
         this.toggleCooldownSeconds = toggleCooldownSeconds;
+
+        return this;
+    }
+
+    public boolean isItemProtectionEnabled() {
+        return itemProtectionEnabled;
+    }
+
+    public PvPToggleConfig setItemProtectionEnabled(boolean itemProtectionEnabled) {
+        this.itemProtectionEnabled = itemProtectionEnabled;
 
         return this;
     }

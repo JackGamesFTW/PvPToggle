@@ -10,6 +10,9 @@
     ],
     "Website": "https://github.com/jackgamesftw/PvPToggle",
     "ServerVersion": "*",
+    "Dependencies": {
+        "Hytale:DamageModule": "*"
+    },
     "DisabledByDefault": false,
     "Main": "me.jack.pvptoggle.PvPTogglePlugin",
     "IncludesAssetPack": false

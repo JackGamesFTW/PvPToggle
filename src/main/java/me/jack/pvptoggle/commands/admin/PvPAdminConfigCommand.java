@@ -31,6 +31,7 @@ public class PvPAdminConfigCommand extends AbstractCommand {
 
         context.sendMessage(Message.raw("Default PvP state: " + (config.isDefaultPvPEnabled() ? "enabled" : "disabled")));
         context.sendMessage(Message.raw("Persist data across restarts: " + (config.isPersistPvPState() ? "enabled" : "disabled")));
+        context.sendMessage(Message.raw("Item protection enabled: " + (config.isItemProtectionEnabled() ? "enabled" : "disabled")));
 
         context.sendMessage(Message.raw(""));
         context.sendMessage(Message.raw("To change these settings:"));
@@ -38,6 +39,7 @@ public class PvPAdminConfigCommand extends AbstractCommand {
         context.sendMessage(Message.raw("  /pvp admin set cooldown <seconds>"));
         context.sendMessage(Message.raw("  /pvp admin set default <true|false|yes|no|on|off>"));
         context.sendMessage(Message.raw("  /pvp admin set persist <true|false|yes|no|on|off>"));
+        context.sendMessage(Message.raw("  /pvp admin set itemprotection <true|false|yes|no|on|off>"));
 
         return CompletableFuture.completedFuture(null);
     }
