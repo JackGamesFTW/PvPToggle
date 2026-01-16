@@ -43,23 +43,25 @@ The combat timer prevents players from disabling PvP mid-fight. After engaging i
 
 #### Configuration Keys
 
-| Key | Type | Description |
-|-----|------|-------------|
-| `combattimer` | seconds | How long after PvP damage before you can toggle (0 to disable) |
-| `cooldown` | seconds | How long between PvP toggles (0 to disable) |
-| `default` | true/false | Default PvP state for new players |
-| `persist` | true/false | Save PvP state across server restarts |
+| Key              | Type | Description                                                    |
+|------------------|------|----------------------------------------------------------------|
+| `combattimer`    | seconds | How long after PvP damage before you can toggle (0 to disable) |
+| `cooldown`       | seconds | How long between PvP toggles (0 to disable)                    |
+| `default`        | true/false | Default PvP state for new players                              |
+| `persist`        | true/false | Save PvP state across server restarts                          |
+| `itemprotection` | true/false | Enable item protection for PvP players                         |
 
 Boolean values accept: `true`, `false`, `yes`, `no`, `on`, `off`, `1`, `0`
 
 ## Default Configuration
 
-| Setting | Default |
-|---------|---------|
-| Combat Timer | 10 seconds |
-| Toggle Cooldown | 5 seconds |
-| Default PvP State | Enabled |
-| Data Persistence | Enabled |
+| Setting           | Default    |
+|-------------------|------------|
+| Combat Timer      | 10 seconds |
+| Toggle Cooldown   | 5 seconds  |
+| Default PvP State | Disabled   |
+| Data Persistence  | Enabled    |
+| Item Protection   | Enabled    |
 
 ## Permissions
 

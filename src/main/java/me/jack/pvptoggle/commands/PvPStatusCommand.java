@@ -9,6 +9,7 @@ import com.hypixel.hytale.server.core.command.system.basecommands.AbstractPlayer
 import com.hypixel.hytale.server.core.universe.PlayerRef;
 import com.hypixel.hytale.server.core.universe.world.World;
 import com.hypixel.hytale.server.core.universe.world.storage.EntityStore;
+import me.jack.pvptoggle.PvPTogglePlugin;
 import me.jack.pvptoggle.components.PvPToggleComponent;
 import org.checkerframework.checker.nullness.compatqual.NonNullDecl;
 
@@ -37,10 +38,12 @@ public class PvPStatusCommand extends AbstractPlayerCommand {
             store.putComponent(ref, PvPToggleComponent.getComponentType(), pvpComponent);
         }
 
+        String itemProtection = PvPTogglePlugin.CONFIG.get().isItemProtectionEnabled() ? "enabled" : "disabled";
+
         if (pvpComponent.isPvPEnabled()) {
-            commandContext.sendMessage(Message.raw("Your PvP is currently enabled."));
+            commandContext.sendMessage(Message.raw("Your PvP is currently enabled. Item protection is currently " + itemProtection));
         } else {
-            commandContext.sendMessage(Message.raw("Your PvP is currently disabled."));
+            commandContext.sendMessage(Message.raw("Your PvP is currently disabled. Item protection is currently " + itemProtection));
         }
     }
 }
