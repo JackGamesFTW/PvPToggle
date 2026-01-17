@@ -83,6 +83,15 @@ public class PvPAdminSetCommand extends AbstractCommand {
                 config.setItemProtectionEnabled(enabled);
                 context.sendMessage(Message.raw("Loot protection set to " + (enabled ? "enabled" : "disabled")));
             }
+            case "knockback" -> {
+                Boolean enabled = parseBoolean(value);
+                if (enabled == null) {
+                    context.sendMessage(MSG_INVALID_VALUE);
+                    return CompletableFuture.completedFuture(null);
+                }
+                config.setKnockbackEnabled(enabled);
+                context.sendMessage(Message.raw("Knockback set to " + (enabled ? "enabled" : "disabled")));
+            }
             default -> context.sendMessage(MSG_INVALID_KEY);
         }
 

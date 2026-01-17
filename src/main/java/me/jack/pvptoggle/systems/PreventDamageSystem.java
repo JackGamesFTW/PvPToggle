@@ -7,11 +7,13 @@ import com.hypixel.hytale.component.Store;
 import com.hypixel.hytale.component.SystemGroup;
 import com.hypixel.hytale.component.query.Query;
 import com.hypixel.hytale.server.core.entity.entities.Player;
+import com.hypixel.hytale.server.core.entity.knockback.KnockbackComponent;
 import com.hypixel.hytale.server.core.modules.entity.damage.Damage;
 import com.hypixel.hytale.server.core.modules.entity.damage.DamageEventSystem;
 import com.hypixel.hytale.server.core.modules.entity.damage.DamageModule;
 import com.hypixel.hytale.server.core.universe.PlayerRef;
 import com.hypixel.hytale.server.core.universe.world.storage.EntityStore;
+import me.jack.pvptoggle.PvPTogglePlugin;
 import me.jack.pvptoggle.components.PvPToggleComponent;
 
 import javax.annotation.Nonnull;
@@ -81,6 +83,10 @@ public class PreventDamageSystem extends DamageEventSystem {
 
         if (!attackerHasPvPEnabled || !targetHasPvPEnabled) {
             damage.setCancelled(true);
+
+            if (!PvPTogglePlugin.CONFIG.get().isKnockbackEnabled()) {
+                commandBuffer.tryRemoveComponent(targetRef, KnockbackComponent.getComponentType());
+            }
         }
     }
 }

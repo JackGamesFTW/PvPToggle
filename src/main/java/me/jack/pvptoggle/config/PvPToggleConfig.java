@@ -9,6 +9,7 @@ public class PvPToggleConfig {
     private boolean persistPvPState = PvPToggleConstants.PERSIST_PVP_STATE;
     private boolean defaultPvPEnabled = PvPToggleConstants.DEFAULT_PVP_ENABLED;
     private boolean itemProtectionEnabled = PvPToggleConstants.LOOT_PROTECTION_ENABLED;
+    private boolean knockbackEnabled = PvPToggleConstants.KNOCKBACK_ENABLED;
 
     private long combatTimerSeconds = PvPToggleConstants.COMBAT_TIMER_SECONDS;
     private long toggleCooldownSeconds = PvPToggleConstants.TOGGLE_COOLDOWN_SECONDS;
@@ -30,6 +31,9 @@ public class PvPToggleConfig {
             .append(new KeyedCodec<>("ItemProtectionEnabled", Codec.BOOLEAN),
                     (config, value) -> config.itemProtectionEnabled = value,
                     (config) -> config.itemProtectionEnabled).add()
+            .append(new KeyedCodec<>("KnockbackEnabled", Codec.BOOLEAN),
+                    (config, value) -> config.knockbackEnabled = value,
+                    (config) -> config.knockbackEnabled).add()
             .build();
 
     public boolean isPersistPvPState() {
@@ -78,6 +82,16 @@ public class PvPToggleConfig {
 
     public PvPToggleConfig setItemProtectionEnabled(boolean itemProtectionEnabled) {
         this.itemProtectionEnabled = itemProtectionEnabled;
+
+        return this;
+    }
+
+    public boolean isKnockbackEnabled() {
+        return knockbackEnabled;
+    }
+
+    public PvPToggleConfig setKnockbackEnabled(boolean knockbackEnabled) {
+        this.knockbackEnabled = knockbackEnabled;
 
         return this;
     }
