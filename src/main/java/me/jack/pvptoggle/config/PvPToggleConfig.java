@@ -14,6 +14,9 @@ public class PvPToggleConfig {
     private long combatTimerSeconds = PvPToggleConstants.COMBAT_TIMER_SECONDS;
     private long toggleCooldownSeconds = PvPToggleConstants.TOGGLE_COOLDOWN_SECONDS;
 
+    private String pvpIndicatorPrefix = PvPToggleConstants.PVP_INDICATOR_PREFIX;
+    private String pvpIndicatorSuffix = PvPToggleConstants.PVP_INDICATOR_SUFFIX;
+
     public static final BuilderCodec<PvPToggleConfig> CODEC = BuilderCodec
             .builder(PvPToggleConfig.class, PvPToggleConfig::new)
             .append(new KeyedCodec<>("PersistPvPState", Codec.BOOLEAN),
@@ -34,6 +37,12 @@ public class PvPToggleConfig {
             .append(new KeyedCodec<>("KnockbackEnabled", Codec.BOOLEAN),
                     (config, value) -> config.knockbackEnabled = value,
                     (config) -> config.knockbackEnabled).add()
+            .append(new KeyedCodec<>("PvPIndicatorPrefix", Codec.STRING),
+                    (config, value) -> config.pvpIndicatorPrefix = value,
+                    (config) -> config.pvpIndicatorPrefix).add()
+            .append(new KeyedCodec<>("PvPIndicatorSuffix", Codec.STRING),
+                    (config, value) -> config.pvpIndicatorSuffix = value,
+                    (config) -> config.pvpIndicatorSuffix).add()
             .build();
 
     public boolean isPersistPvPState() {
@@ -94,5 +103,29 @@ public class PvPToggleConfig {
         this.knockbackEnabled = knockbackEnabled;
 
         return this;
+    }
+
+    public String getPvPIndicatorPrefix() {
+        return pvpIndicatorPrefix;
+    }
+
+    public PvPToggleConfig setPvPIndicatorPrefix(String pvpIndicatorPrefix) {
+        this.pvpIndicatorPrefix = pvpIndicatorPrefix;
+
+        return this;
+    }
+
+    public String getPvPIndicatorSuffix() {
+        return pvpIndicatorSuffix;
+    }
+
+    public PvPToggleConfig setPvPIndicatorSuffix(String pvpIndicatorSuffix) {
+        this.pvpIndicatorSuffix = pvpIndicatorSuffix;
+
+        return this;
+    }
+
+    public boolean isPvPIndicatorEnabled() {
+        return !pvpIndicatorPrefix.isEmpty() || !pvpIndicatorSuffix.isEmpty();
     }
 }

@@ -11,9 +11,7 @@ import com.hypixel.hytale.server.core.util.Config;
 import me.jack.pvptoggle.commands.PvPCommand;
 import me.jack.pvptoggle.components.PvPToggleComponent;
 import me.jack.pvptoggle.config.PvPToggleConfig;
-import me.jack.pvptoggle.systems.CombatTrackingSystem;
-import me.jack.pvptoggle.systems.PreventDamageSystem;
-import me.jack.pvptoggle.systems.PvPItemProtectionSystem;
+import me.jack.pvptoggle.systems.*;
 
 import javax.annotation.Nonnull;
 
@@ -70,6 +68,8 @@ public class PvPTogglePlugin extends JavaPlugin {
         this.getEntityStoreRegistry().registerSystem(new CombatTrackingSystem());
         this.getEntityStoreRegistry().registerSystem(new PreventDamageSystem());
         this.getEntityStoreRegistry().registerSystem(new PvPItemProtectionSystem());
+        this.getEntityStoreRegistry().registerSystem(new PvPNameplateSystem());
+        this.getEntityStoreRegistry().registerSystem(new PvPToggleNameplateUpdateSystem());
 
         this.getCommandRegistry().registerCommand(new PvPCommand());
     }

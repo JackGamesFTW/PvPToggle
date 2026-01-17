@@ -5,11 +5,12 @@ import com.hypixel.hytale.codec.KeyedCodec;
 import com.hypixel.hytale.codec.builder.BuilderCodec;
 import com.hypixel.hytale.component.Component;
 import com.hypixel.hytale.component.ComponentType;
+import com.hypixel.hytale.server.core.universe.world.storage.EntityStore;
 import me.jack.pvptoggle.PvPTogglePlugin;
 
 import java.time.Instant;
 
-public class PvPToggleComponent implements Component {
+public class PvPToggleComponent implements Component<EntityStore> {
     private boolean pvpEnabled;
     private Instant lastToggleTime = Instant.EPOCH;
     private Instant lastCombatTime = Instant.EPOCH;
@@ -84,7 +85,7 @@ public class PvPToggleComponent implements Component {
     }
 
     @Override
-    public Component clone() {
+    public Component<EntityStore> clone() {
         PvPToggleComponent clone = new PvPToggleComponent(this.pvpEnabled);
 
         clone.lastCombatTime = this.lastCombatTime;
