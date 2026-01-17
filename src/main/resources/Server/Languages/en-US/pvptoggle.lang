@@ -1,0 +1,11 @@
+on = PvP is now enabled. You can attack and be attacked by other players.
+off = PvP is now disabled. You cannot attack or be attacked by other players.
+
+already_enabled = PvP is already enabled.
+already_disabled = PvP is already disabled.
+
+combat_cooldown = You cannot toggle PvP while in combat! Wait {timeLeft} seconds.
+toggle_cooldown = You are toggling too quick! Wait {timeLeft} seconds.
+
+status.enabled = Your PvP is currently enabled. Item protection is currently {itemProtection}
+status.disabled = Your PvP is currently disabled. Item protection is currently {itemProtection}

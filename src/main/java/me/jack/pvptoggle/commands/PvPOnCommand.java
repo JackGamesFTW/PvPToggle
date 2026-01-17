@@ -40,22 +40,22 @@ public class PvPOnCommand extends AbstractPlayerCommand {
         }
 
         if (pvp.isPvPEnabled()) {
-            commandContext.sendMessage(Message.raw("PvP is already enabled."));
+            commandContext.sendMessage(Message.translation("pvptoggle.already_enabled"));
             return;
         }
 
         if (pvp.isInCombat()) {
-            commandContext.sendMessage(Message.raw("You cannot toggle PvP while in combat! Wait " + pvp.getRemainingCombatTime() + " seconds."));
+            commandContext.sendMessage(Message.translation("pvptoggle.combat_cooldown").param("timeLeft", pvp.getRemainingCombatTime()));
             return;
         }
 
         if (pvp.isOnCooldown()) {
-            commandContext.sendMessage(Message.raw("You are toggling too quick! Wait " + pvp.getRemainingCooldown() + " seconds."));
+            commandContext.sendMessage(Message.translation("pvptoggle.toggle_cooldown").param("timeLeft", pvp.getRemainingCooldown()));
             return;
         }
 
         pvp.setPvPEnabled(true);
         pvp.setLastToggleTime(Instant.now());
-        commandContext.sendMessage(Message.raw("PvP is now enabled. You can attack and be attacked by other players."));
+        commandContext.sendMessage(Message.translation("pvptoggle.on"));
     }
 }

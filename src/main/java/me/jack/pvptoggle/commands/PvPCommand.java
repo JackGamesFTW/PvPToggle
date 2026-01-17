@@ -25,5 +25,6 @@ public class PvPCommand extends AbstractCommandCollection {
         this.addSubCommand(new PvPOffCommand());
         this.addSubCommand(new PvPStatusCommand());
         this.addSubCommand(new PvPAdminCommand());
+        this.addSubCommand(new PvPToggleCommand());
     }
 }

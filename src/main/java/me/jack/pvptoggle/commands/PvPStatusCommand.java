@@ -41,9 +41,9 @@ public class PvPStatusCommand extends AbstractPlayerCommand {
         String itemProtection = PvPTogglePlugin.CONFIG.get().isItemProtectionEnabled() ? "enabled" : "disabled";
 
         if (pvpComponent.isPvPEnabled()) {
-            commandContext.sendMessage(Message.raw("Your PvP is currently enabled. Item protection is currently " + itemProtection));
+            commandContext.sendMessage(Message.translation("pvptoggle.status.enabled").param("itemProtection", itemProtection));
         } else {
-            commandContext.sendMessage(Message.raw("Your PvP is currently disabled. Item protection is currently " + itemProtection));
+            commandContext.sendMessage(Message.translation("pvptoggle.status.disabled").param("itemProtection", itemProtection));
         }
     }
 }

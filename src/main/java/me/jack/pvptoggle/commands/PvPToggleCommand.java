@@ -17,9 +17,9 @@ import java.time.Instant;
 /**
  * This is an example command that will simply print the name of the plugin in chat when used.
  */
-public class PvPOffCommand extends AbstractPlayerCommand {
-    public PvPOffCommand() {
-        super("off", "Disable PvP");
+public class PvPToggleCommand extends AbstractPlayerCommand {
+    public PvPToggleCommand() {
+        super("toggle", "Toggle PvP");
 
         this.setPermissionGroup(GameMode.Adventure);
     }
@@ -39,11 +39,6 @@ public class PvPOffCommand extends AbstractPlayerCommand {
             store.putComponent(ref, PvPToggleComponent.getComponentType(), pvp);
         }
 
-        if (!pvp.isPvPEnabled()) {
-            commandContext.sendMessage(Message.translation("pvptoggle.already_disabled"));
-            return;
-        }
-
         if (pvp.isInCombat()) {
             commandContext.sendMessage(Message.translation("pvptoggle.combat_cooldown").param("timeLeft", pvp.getRemainingCombatTime()));
             return;
@@ -54,8 +49,10 @@ public class PvPOffCommand extends AbstractPlayerCommand {
             return;
         }
 
-        pvp.setPvPEnabled(false);
+        String messageKey = pvp.isPvPEnabled() ? "pvptoggle.off" : "pvptoggle.on";
+
+        pvp.setPvPEnabled(!pvp.isPvPEnabled());
         pvp.setLastToggleTime(Instant.now());
-        commandContext.sendMessage(Message.translation("pvptoggle.off"));
+        commandContext.sendMessage(Message.translation(messageKey));
     }
 }
