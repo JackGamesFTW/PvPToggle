@@ -19,29 +19,40 @@ public class PvPAdminConfigCommand extends AbstractCommand {
     protected CompletableFuture<Void> execute(@Nonnull CommandContext context) {
         PvPToggleConfig config = PvPTogglePlugin.CONFIG.get();
 
-        context.sendMessage(Message.raw("PvP Toggle Config:"));
+        context.sendMessage(Message.translation("pvptoggle.config.title"));
 
         long combatTimer = config.getCombatTimerSeconds();
-        String combatText = combatTimer > 0 ? combatTimer + " seconds" : "disabled";
-        context.sendMessage(Message.raw("Combat timer: " + combatText));
+        Message combatValue = combatTimer > 0 
+                ? Message.translation("pvptoggle.common.seconds").param("count", combatTimer) 
+                : Message.translation("pvptoggle.common.disabled");
+        context.sendMessage(Message.translation("pvptoggle.config.combat_timer").param("value", combatValue));
 
         long cooldown = config.getToggleCooldownSeconds();
-        String cooldownText = cooldown > 0 ? cooldown + " seconds" : "disabled";
-        context.sendMessage(Message.raw("Toggle cooldown: " + cooldownText));
+        Message cooldownValue = cooldown > 0 
+                ? Message.translation("pvptoggle.common.seconds").param("count", cooldown) 
+                : Message.translation("pvptoggle.common.disabled");
+        context.sendMessage(Message.translation("pvptoggle.config.toggle_cooldown").param("value", cooldownValue));
 
-        context.sendMessage(Message.raw("Default PvP state: " + (config.isDefaultPvPEnabled() ? "enabled" : "disabled")));
-        context.sendMessage(Message.raw("Persist data across restarts: " + (config.isPersistPvPState() ? "enabled" : "disabled")));
-        context.sendMessage(Message.raw("Item protection enabled: " + (config.isItemProtectionEnabled() ? "enabled" : "disabled")));
-        context.sendMessage(Message.raw("Knockback: " + (config.isKnockbackEnabled() ? "enabled" : "disabled")));
+        context.sendMessage(Message.translation("pvptoggle.config.default_state")
+                .param("state", Message.translation(config.isDefaultPvPEnabled() ? "pvptoggle.common.enabled" : "pvptoggle.common.disabled")));
+
+        context.sendMessage(Message.translation("pvptoggle.config.persist_data")
+                .param("state", Message.translation(config.isPersistPvPState() ? "pvptoggle.common.enabled" : "pvptoggle.common.disabled")));
+
+        context.sendMessage(Message.translation("pvptoggle.config.item_protection")
+                .param("state", Message.translation(config.isItemProtectionEnabled() ? "pvptoggle.common.enabled" : "pvptoggle.common.disabled")));
+
+        context.sendMessage(Message.translation("pvptoggle.config.knockback")
+                .param("state", Message.translation(config.isKnockbackEnabled() ? "pvptoggle.common.enabled" : "pvptoggle.common.disabled")));
 
         context.sendMessage(Message.raw(""));
-        context.sendMessage(Message.raw("To change these settings:"));
-        context.sendMessage(Message.raw("  /pvp admin set combattimer <seconds>"));
-        context.sendMessage(Message.raw("  /pvp admin set cooldown <seconds>"));
-        context.sendMessage(Message.raw("  /pvp admin set default <true|false|yes|no|on|off>"));
-        context.sendMessage(Message.raw("  /pvp admin set persist <true|false|yes|no|on|off>"));
-        context.sendMessage(Message.raw("  /pvp admin set itemprotection <true|false|yes|no|on|off>"));
-        context.sendMessage(Message.raw("  /pvp admin set knockback <true|false|yes|no|on|off>"));
+        context.sendMessage(Message.translation("pvptoggle.config.help.title"));
+        context.sendMessage(Message.translation("pvptoggle.config.help.combat"));
+        context.sendMessage(Message.translation("pvptoggle.config.help.cooldown"));
+        context.sendMessage(Message.translation("pvptoggle.config.help.default"));
+        context.sendMessage(Message.translation("pvptoggle.config.help.persist"));
+        context.sendMessage(Message.translation("pvptoggle.config.help.itemprotection"));
+        context.sendMessage(Message.translation("pvptoggle.config.help.knockback"));
 
         return CompletableFuture.completedFuture(null);
     }

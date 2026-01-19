@@ -9,3 +9,34 @@ toggle_cooldown = You are toggling too quick! Wait {timeLeft} seconds.
 
 status.enabled = Your PvP is currently enabled. Item protection is currently {itemProtection}
 status.disabled = Your PvP is currently disabled. Item protection is currently {itemProtection}
+
+errors.admin.set.invalid_key = Invalid key. Valid keys: combattimer, cooldown, default, persist, itemprotection, knockback
+errors.admin.set.invalid_value = Invalid value. Use a number for timers, or true/false/yes/no/on/off for toggles.
+errors.admin.set.persist_restart = Note: 'persist' changes require a server restart to take effect.
+
+config.title = PvP Toggle Config:
+config.combat_timer = Combat timer: {value}
+config.toggle_cooldown = Toggle cooldown: {value}
+config.default_state = Default PvP state: {state}
+config.persist_data = Persist data across restarts: {state}
+config.item_protection = Item protection enabled: {state}
+config.knockback = Knockback: {state}
+config.help.title = To change these settings:
+config.help.combat =   /pvp admin set combattimer <seconds>
+config.help.cooldown =   /pvp admin set cooldown <seconds>
+config.help.default =   /pvp admin set default <true|false|yes|no|on|off>
+config.help.persist =   /pvp admin set persist <true|false|yes|no|on|off>
+config.help.itemprotection =   /pvp admin set itemprotection <true|false|yes|no|on|off>
+config.help.knockback =   /pvp admin set knockback <true|false|yes|no|on|off>
+
+admin.set.combat_timer = Combat timer set to {value}
+admin.set.toggle_cooldown = Toggle cooldown set to {value}
+admin.set.default_state = Default PvP state set to {state}
+admin.set.persist_data = Persist PvP state set to {state}
+admin.set.item_protection = Loot protection set to {state}
+admin.set.knockback = Knockback set to {state}
+
+common.enabled = enabled
+common.disabled = disabled
+common.seconds = {count}s
+common.seconds_disabled = {count}s (disabled)

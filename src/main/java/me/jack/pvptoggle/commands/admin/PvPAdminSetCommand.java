@@ -13,9 +13,9 @@ import javax.annotation.Nonnull;
 
 public class PvPAdminSetCommand extends AbstractCommand {
 
-    private static final Message MSG_INVALID_KEY = Message.raw("Invalid key. Valid keys: combattimer, cooldown, default, persist, itemprotection");
-    private static final Message MSG_INVALID_VALUE = Message.raw("Invalid value. Use a number for timers, or true/false/yes/no/on/off for toggles.");
-    private static final Message MSG_PERSIST_RESTART = Message.raw("Note: 'persist' changes require a server restart to take effect.");
+    private static final Message MSG_INVALID_KEY = Message.translation("pvptoggle.errors.admin.set.invalid_key");
+    private static final Message MSG_INVALID_VALUE = Message.translation("pvptoggle.errors.admin.set.invalid_value");
+    private static final Message MSG_PERSIST_RESTART = Message.translation("pvptoggle.errors.admin.set.persist_restart");
 
     @Nonnull
     private final RequiredArg<String> keyArg;
@@ -44,7 +44,8 @@ public class PvPAdminSetCommand extends AbstractCommand {
                     return CompletableFuture.completedFuture(null);
                 }
                 config.setCombatTimerSeconds(seconds);
-                context.sendMessage(Message.raw("Combat timer set to " + seconds + "s" + (seconds == 0 ? " (disabled)" : "")));
+                Message timerMsg = Message.translation(seconds == 0 ? "pvptoggle.common.seconds_disabled" : "pvptoggle.common.seconds").param("count", seconds);
+                context.sendMessage(Message.translation("pvptoggle.admin.set.combat_timer").param("value", timerMsg));
             }
             case "cooldown" -> {
                 Long seconds = parseLong(value);
@@ -53,7 +54,8 @@ public class PvPAdminSetCommand extends AbstractCommand {
                     return CompletableFuture.completedFuture(null);
                 }
                 config.setToggleCooldownSeconds(seconds);
-                context.sendMessage(Message.raw("Toggle cooldown set to " + seconds + "s" + (seconds == 0 ? " (disabled)" : "")));
+                Message timerMsg = Message.translation(seconds == 0 ? "pvptoggle.common.seconds_disabled" : "pvptoggle.common.seconds").param("count", seconds);
+                context.sendMessage(Message.translation("pvptoggle.admin.set.toggle_cooldown").param("value", timerMsg));
             }
             case "default" -> {
                 Boolean enabled = parseBoolean(value);
@@ -62,7 +64,8 @@ public class PvPAdminSetCommand extends AbstractCommand {
                     return CompletableFuture.completedFuture(null);
                 }
                 config.setDefaultPvPEnabled(enabled);
-                context.sendMessage(Message.raw("Default PvP state set to " + (enabled ? "enabled" : "disabled")));
+                context.sendMessage(Message.translation("pvptoggle.admin.set.default_state")
+                        .param("state", Message.translation(enabled ? "pvptoggle.common.enabled" : "pvptoggle.common.disabled")));
             }
             case "persist" -> {
                 Boolean enabled = parseBoolean(value);
@@ -71,7 +74,8 @@ public class PvPAdminSetCommand extends AbstractCommand {
                     return CompletableFuture.completedFuture(null);
                 }
                 config.setPersistPvPState(enabled);
-                context.sendMessage(Message.raw("Persist PvP state set to " + (enabled ? "enabled" : "disabled")));
+                context.sendMessage(Message.translation("pvptoggle.admin.set.persist_data")
+                        .param("state", Message.translation(enabled ? "pvptoggle.common.enabled" : "pvptoggle.common.disabled")));
                 context.sendMessage(MSG_PERSIST_RESTART);
             }
             case "itemprotection" -> {
@@ -81,7 +85,8 @@ public class PvPAdminSetCommand extends AbstractCommand {
                     return CompletableFuture.completedFuture(null);
                 }
                 config.setItemProtectionEnabled(enabled);
-                context.sendMessage(Message.raw("Loot protection set to " + (enabled ? "enabled" : "disabled")));
+                context.sendMessage(Message.translation("pvptoggle.admin.set.item_protection")
+                        .param("state", Message.translation(enabled ? "pvptoggle.common.enabled" : "pvptoggle.common.disabled")));
             }
             case "knockback" -> {
                 Boolean enabled = parseBoolean(value);
@@ -90,7 +95,8 @@ public class PvPAdminSetCommand extends AbstractCommand {
                     return CompletableFuture.completedFuture(null);
                 }
                 config.setKnockbackEnabled(enabled);
-                context.sendMessage(Message.raw("Knockback set to " + (enabled ? "enabled" : "disabled")));
+                context.sendMessage(Message.translation("pvptoggle.admin.set.knockback")
+                        .param("state", Message.translation(enabled ? "pvptoggle.common.enabled" : "pvptoggle.common.disabled")));
             }
             default -> context.sendMessage(MSG_INVALID_KEY);
         }
